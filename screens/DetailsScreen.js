@@ -3,18 +3,18 @@ import {
     StatusBar,
     StyleSheet,
 } from 'react-native';
-import {Container, Header, Content, Card, FooterTab, Footer, Button, Icon, CardItem, Text, Body,} from 'native-base/';
+import {Container, Content, Card, CardItem, Text} from 'native-base';
 
 
-export default class HomeScreen extends React.Component {
+export default class DetailsScreen extends React.Component {
 
     render() {
         return (
             <Container style={styles.container}>
                 <Content padder>
                     <Card>
-                        <CardItem button>
-                            <Text>Home</Text>
+                        <CardItem>
+                            <Text>Details</Text>
                         </CardItem>
                     </Card>
                 </Content>
