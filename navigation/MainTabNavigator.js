@@ -1,15 +1,10 @@
 import React from 'react';
+import {StyleSheet} from 'react-native';
 import {createStackNavigator, createBottomTabNavigator} from 'react-navigation';
-import {Platform, StatusBar, StyleSheet} from 'react-native';
-import {Header, Footer, FooterTab, Button, Icon} from 'native-base';
+import {Footer, FooterTab, Button, Icon} from 'native-base';
 import HomeScreen from '../screens/HomeScreen';
 import DetailsScreen from "../screens/DetailsScreen";
 
-const styles = StyleSheet.create({
-    header: {
-        marginTop: StatusBar.currentHeight,
-    }
-});
 
 const HomeStack = createStackNavigator({
     Home: {
@@ -30,14 +25,17 @@ const DetailsStack = createStackNavigator({
 });
 
 const TabBar = ({navigation}) => {
-    return <Footer>
+    const navigate = tabName => () => navigation.navigate(tabName);
+    return <Footer >
         <FooterTab>
             <Button active={navigation.state.index === 0}
-                    onPress={() => navigation.navigate("Home")}>
+                    title=""
+                    onPress={navigate("Home")}>
                 <Icon name="home"/>
             </Button>
             <Button active={navigation.state.index === 1}
-                    onPress={() => navigation.navigate("Details")}>
+                    title=""
+                    onPress={navigate("Details")}>
                 <Icon name="notifications"/>
             </Button>
         </FooterTab>

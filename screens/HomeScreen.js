@@ -3,21 +3,45 @@ import {
     StatusBar,
     StyleSheet,
 } from 'react-native';
-import {Container, Header, Content, Card, FooterTab, Footer, Button, Icon, CardItem, Text, Body,} from 'native-base/';
+import {
+    Container,
+    List,
+    ListItem,
+    Left,
+    Icon,
+    Body,
+    Right,
+    Text
+} from 'native-base';
+import {withNavigation} from 'react-navigation';
 
+const GroupListItem = withNavigation(({iconName, title, count, navigation}) => {
+    return <ListItem onPress={() => navigation.navigate("Details")} icon>
+        <Left>
+            <Icon style={styles.groupListItemIcon} name={iconName}/>
+        </Left>
+        <Body>
+            <Text>{title}</Text>
+        </Body>
+        <Right>
+            <Text>{count}</Text>
+            <Icon name="arrow-forward"/>
+        </Right>
+    </ListItem>;
+});
 
 export default class HomeScreen extends React.Component {
 
     render() {
         return (
             <Container style={styles.container}>
-                <Content padder>
-                    <Card>
-                        <CardItem button>
-                            <Text>Home</Text>
-                        </CardItem>
-                    </Card>
-                </Content>
+                <List>
+                    <GroupListItem iconName="create" title="Формирование" count="100"/>
+                    <GroupListItem iconName="briefcase" title="Проверка документов" count="100"/>
+                    <GroupListItem iconName="paper" title="Оформление договора" count="100"/>
+                    <GroupListItem iconName="checkmark" title="Исполнение" count="100"/>
+                    <GroupListItem iconName="star" title="Результат" count="100"/>
+                </List>
             </Container>
         );
     }
@@ -31,4 +55,7 @@ const styles = StyleSheet.create({
     contentContainer: {
         paddingTop: 30,
     },
+    groupListItemIcon: {
+        color: "#bd9a7a"
+    }
 });
