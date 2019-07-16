@@ -2,6 +2,7 @@ import React from 'react';
 import {
     StatusBar,
     StyleSheet,
+    Platform
 } from 'react-native';
 import {
     Container,
@@ -14,9 +15,10 @@ import {
     Text
 } from 'native-base';
 import {withNavigation} from 'react-navigation';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 
 const GroupListItem = withNavigation(({iconName, title, count, navigation}) => {
-    return <ListItem onPress={() => navigation.navigate("Details")} icon>
+    return <ListItem onPress={() => navigation.navigate("RequestList")} icon>
         <Left>
             <Icon style={styles.groupListItemIcon} name={iconName}/>
         </Left>
@@ -36,11 +38,11 @@ export default class HomeScreen extends React.Component {
         return (
             <Container style={styles.container}>
                 <List>
-                    <GroupListItem iconName="create" title="Формирование" count="100"/>
-                    <GroupListItem iconName="briefcase" title="Проверка документов" count="100"/>
-                    <GroupListItem iconName="paper" title="Оформление договора" count="100"/>
-                    <GroupListItem iconName="checkmark" title="Исполнение" count="100"/>
-                    <GroupListItem iconName="star" title="Результат" count="100"/>
+                    <GroupListItem iconName="create" title="Формирование" count="5"/>
+                    <GroupListItem iconName="briefcase" title="Проверка документов" count="4"/>
+                    <GroupListItem iconName="paper" title="Оформление договора" count="5"/>
+                    <GroupListItem iconName="checkmark-circle-outline" title="Исполнение" count="4"/>
+                    <GroupListItem iconName="star" title="Результат" count="5"/>
                 </List>
             </Container>
         );
@@ -50,7 +52,14 @@ export default class HomeScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: StatusBar.currentHeight
+        ...Platform.select({
+            ios: {
+                marginTop: getStatusBarHeight(true)
+            },
+            android: {
+                marginTop: StatusBar.currentHeight
+            }
+        })
     },
     contentContainer: {
         paddingTop: 30,
