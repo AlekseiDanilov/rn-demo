@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    StatusBar,
     StyleSheet,
 } from 'react-native';
 import {
@@ -14,6 +13,8 @@ import {
     Body,
     Text
 } from 'native-base';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {withNavigation} from 'react-navigation';
 
 
 const requests = [
@@ -39,14 +40,14 @@ const requests = [
     },
 ];
 
-const RequestItem = ({request}) => {
-    return <ListItem key={request.number}>
+const RequestItem = withNavigation(({request, navigation}) => {
+    return <ListItem key={request.number} onPress={() => navigation.navigate("Request")}>
         <Body>
             <Text>{request.number}</Text>
             <Text note numberOfLines={2}>{request.objectName}</Text>
         </Body>
     </ListItem>
-};
+});
 
 
 export default class RequestListScreen extends React.Component {
@@ -89,7 +90,7 @@ export default class RequestListScreen extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        marginTop: StatusBar.currentHeight
+        marginTop:getStatusBarHeight()
     },
     contentContainer: {
         paddingTop: 30,

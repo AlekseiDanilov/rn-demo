@@ -5,6 +5,7 @@ import {Footer, FooterTab, Button, Icon} from 'native-base';
 import HomeScreen from '../screens/HomeScreen';
 import DetailsScreen from "../screens/DetailsScreen";
 import RequestListScreen from "../screens/RequestListScreen";
+import RequestScreen from "../screens/RequestScreen";
 
 
 const HomeStack = createStackNavigator({
@@ -34,11 +35,20 @@ const RequestListStack = createStackNavigator({
     }
 });
 
+const RequestStack = createStackNavigator({
+    Request: {
+        screen: RequestScreen,
+        navigationOptions: {
+            header: null
+        }
+    }
+});
+
 const TabBar = ({navigation}) => {
     const navigate = tabName => () => navigation.navigate(tabName);
     return <Footer >
         <FooterTab>
-            <Button active={[0, 2].includes(navigation.state.index)}
+            <Button active={[0, 2, 3].includes(navigation.state.index)}
                     title=""
                     onPress={navigate("Home")}>
                 <Icon name="home"/>
@@ -56,7 +66,8 @@ const TabBar = ({navigation}) => {
 export default createBottomTabNavigator({
     HomeStack,
     DetailsStack,
-    RequestListStack
+    RequestListStack,
+    RequestStack
 }, {
     tabBarComponent: TabBar
 
